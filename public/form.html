@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest</title>
+  <link rel="icon" href="./asst/img/mind.png" type="image/mc-icon">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./asst/css/content.css">
+  <link rel="stylesheet" href="./asst/css/layout.css">
+</head>
+
+<body>
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <!-- Brand/logo -->
+        <img src="./asst/img/mind.png" alt="MindNest" class="logo">
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="review.html">Review</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <form id="counselingForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <h3>Personal Details</h3>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <select id="gender" required>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <button type="button" id="next1">Next</button>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <h3>Counseling Preferences</h3>
+        <select id="counselingType" required>
+          <option value="">Select Counseling Type</option>
+          <option value="Career">Career</option>
+          <option value="Mental Health">Mental Health</option>
+          <option value="Relationship">Relationship</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="counselor">
+          <option value="">Preferred Counselor (Optional)</option>
+          <option value="Counselor A">Dr.Pavithra.G</option>
+          <option value="Counselor B">Dr.Divya</option>
+          <option value="Counselor C">Mr.Karthik</option>
+        </select>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
+        <button type="button" id="prev2">Previous</button>
+        <button type="button" id="next2">Next</button>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <p id="confirmText"></p>
+        <div>
+          <button type="button" id="prev3">Previous</button>
+          <button type="submit">Book Now</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <video class="bg-video" autoplay loop muted>
+    <source src="./asst/img/WhatsApp Video 2025-08-19 at 20.44.16.mp4" type="video/mp4">
+  </video>
+
+  <!-- ✅ Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4">
+        <h5 class="modal-title text-success">✅ Booking Confirmed!</h5>
+        <div class="modal-body">
+          Your counseling session has been saved successfully.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./asst/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
