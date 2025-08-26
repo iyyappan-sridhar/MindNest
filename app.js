@@ -1,20 +1,17 @@
 require("dotenv").config();
-console.log("SID =>", process.env.TWILIO_ACCOUNT_SID); // debug
-console.log("TOKEN =>", process.env.TWILIO_AUTH_TOKEN ? "Loaded" : "Missing");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const pool = require("./db");   // DB connection file
+const pool = require("./db");                  // DB connection file
 const sendNotification = require("./notification"); // notification.js import
 
 const app = express();
 const PORT = 8080;
 
-
-// Middleware
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public"))); // serve frontend
+// 👉 Middleware
+app.use(bodyParser.json());                               // handle JSON
+app.use(bodyParser.urlencoded({ extended: true }));       // handle form submits
+app.use(express.static(path.join(__dirname, "public")));  // serve frontend
 
 // 👉 Root route - load index.html
 app.get("/", (req, res) => {
@@ -26,6 +23,8 @@ app.post("/api/counseling", async (req, res) => {
   try {
     const { name, age, gender, email, phone, counselingType, counselor, date, time, rating } = req.body;
 
+    console.log("📥 Received booking data:", req.body); // debug
+
     // Save to DB
     const newSession = await pool.query(
       `INSERT INTO counseling_sessions 
@@ -34,11 +33,10 @@ app.post("/api/counseling", async (req, res) => {
       [name, age, gender, email, phone, counselingType, counselor, date, time, rating]
     );
 
-    // Send Notification (WhatsApp / Email)
+    // Send Notification (WhatsApp / SMS)
     await sendNotification(newSession.rows[0]);
 
     res.json({ message: "✅ Counseling session saved successfully!" });
-    
 
   } catch (err) {
     console.error("❌ Error saving session:", err);
@@ -46,7 +44,7 @@ app.post("/api/counseling", async (req, res) => {
   }
 });
 
-// Start server
+// 👉 Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
