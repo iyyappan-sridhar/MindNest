@@ -21,6 +21,7 @@ const prev3 = document.getElementById('prev3');
 const form = document.getElementById('counselingForm');
 const confirmText = document.getElementById('confirmText');
 
+// 👉 Step navigation
 next1.addEventListener('click', () => {
   steps[0].classList.remove('active');
   steps[1].classList.add('active');
@@ -63,6 +64,7 @@ prev3.addEventListener('click', () => {
   steps[1].classList.add('active');
 });
 
+// 👉 Form submit
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -80,29 +82,27 @@ form.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:8080/api/counseling", {   // ✅ port corrected
+    // ✅ Use relative path (works on Render too)
+    const res = await fetch("/api/counseling", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
-    })
+    });
 
     const data = await res.json();
-    // alert(data.message || "Counseling Session Saved ✅");
+    console.log("📥 Server response:", data);
 
+    // Reset form
     form.reset();
     steps.forEach(step => step.classList.remove('active'));
     steps[0].classList.add('active');
 
+    // ✅ Show success modal
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show();
+
   } catch (err) {
-    console.error("Error:", err);
-    // alert("❌ Could not connect to server");
+    console.error("❌ Error:", err);
+    alert("❌ Could not connect to server");
   }
 });
-
-// old alert line remove pannunga
-// alert(data.message || "Counseling Session Saved ✅");
-
-// instead use modal
-const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-successModal.show();
-
