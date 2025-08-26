@@ -1,3 +1,7 @@
+require("dotenv").config();
+console.log("SID =>", process.env.TWILIO_ACCOUNT_SID); // debug
+console.log("TOKEN =>", process.env.TWILIO_AUTH_TOKEN ? "Loaded" : "Missing");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -6,6 +10,7 @@ const sendNotification = require("./notification"); // notification.js import
 
 const app = express();
 const PORT = 8080;
+
 
 // Middleware
 app.use(bodyParser.json());
